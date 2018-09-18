@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.ruc.mapper.TsbmRResultMapper">
+  <resultMap id="BaseResultMap" type="cn.edu.ruc.entity.TsbmRResult">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="batch_id" jdbcType="INTEGER" property="batchId" />
+    <result column="clients" jdbcType="INTEGER" property="clients" />
+    <result column="query_sum" jdbcType="BIGINT" property="querySum" />
+    <result column="cost_time" jdbcType="BIGINT" property="costTime" />
+    <result column="qps" jdbcType="BIGINT" property="qps" />
+    <result column="success_ratio" jdbcType="DECIMAL" property="successRatio" />
+    <result column="max_timeout" jdbcType="BIGINT" property="maxTimeout" />
+    <result column="min_timeout" jdbcType="BIGINT" property="minTimeout" />
+    <result column="avg_timeout" jdbcType="BIGINT" property="avgTimeout" />
+    <result column="th50_timeout" jdbcType="BIGINT" property="th50Timeout" />
+    <result column="th95_timeout" jdbcType="BIGINT" property="th95Timeout" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, batch_id, clients, query_sum, cost_time, qps, success_ratio, max_timeout, min_timeout, 
+    avg_timeout, th50_timeout, th95_timeout, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tsbm_read_result
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tsbm_read_result
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.ruc.entity.TsbmRResult">
+    insert into tsbm_read_result (id, batch_id, clients, 
+      query_sum, cost_time, qps, 
+      success_ratio, max_timeout, min_timeout, 
+      avg_timeout, th50_timeout, th95_timeout, 
+      create_time)
+    values (#{id,jdbcType=BIGINT}, #{batchId,jdbcType=INTEGER}, #{clients,jdbcType=INTEGER}, 
+      #{querySum,jdbcType=BIGINT}, #{costTime,jdbcType=BIGINT}, #{qps,jdbcType=BIGINT}, 
+      #{successRatio,jdbcType=DECIMAL}, #{maxTimeout,jdbcType=BIGINT}, #{minTimeout,jdbcType=BIGINT}, 
+      #{avgTimeout,jdbcType=BIGINT}, #{th50Timeout,jdbcType=BIGINT}, #{th95Timeout,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.ruc.entity.TsbmRResult">
+    insert into tsbm_read_result
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="batchId != null">
+        batch_id,
+      </if>
+      <if test="clients != null">
+        clients,
+      </if>
+      <if test="querySum != null">
+        query_sum,
+      </if>
+      <if test="costTime != null">
+        cost_time,
+      </if>
+      <if test="qps != null">
+        qps,
+      </if>
+      <if test="successRatio != null">
+        success_ratio,
+      </if>
+      <if test="maxTimeout != null">
+        max_timeout,
+      </if>
+      <if test="minTimeout != null">
+        min_timeout,
+      </if>
+      <if test="avgTimeout != null">
+        avg_timeout,
+      </if>
+      <if test="th50Timeout != null">
+        th50_timeout,
+      </if>
+      <if test="th95Timeout != null">
+        th95_timeout,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="batchId != null">
+        #{batchId,jdbcType=INTEGER},
+      </if>
+      <if test="clients != null">
+        #{clients,jdbcType=INTEGER},
+      </if>
+      <if test="querySum != null">
+        #{querySum,jdbcType=BIGINT},
+      </if>
+      <if test="costTime != null">
+        #{costTime,jdbcType=BIGINT},
+      </if>
+      <if test="qps != null">
+        #{qps,jdbcType=BIGINT},
+      </if>
+      <if test="successRatio != null">
+        #{successRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="maxTimeout != null">
+        #{maxTimeout,jdbcType=BIGINT},
+      </if>
+      <if test="minTimeout != null">
+        #{minTimeout,jdbcType=BIGINT},
+      </if>
+      <if test="avgTimeout != null">
+        #{avgTimeout,jdbcType=BIGINT},
+      </if>
+      <if test="th50Timeout != null">
+        #{th50Timeout,jdbcType=BIGINT},
+      </if>
+      <if test="th95Timeout != null">
+        #{th95Timeout,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.ruc.entity.TsbmRResult">
+    update tsbm_read_result
+    <set>
+      <if test="batchId != null">
+        batch_id = #{batchId,jdbcType=INTEGER},
+      </if>
+      <if test="clients != null">
+        clients = #{clients,jdbcType=INTEGER},
+      </if>
+      <if test="querySum != null">
+        query_sum = #{querySum,jdbcType=BIGINT},
+      </if>
+      <if test="costTime != null">
+        cost_time = #{costTime,jdbcType=BIGINT},
+      </if>
+      <if test="qps != null">
+        qps = #{qps,jdbcType=BIGINT},
+      </if>
+      <if test="successRatio != null">
+        success_ratio = #{successRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="maxTimeout != null">
+        max_timeout = #{maxTimeout,jdbcType=BIGINT},
+      </if>
+      <if test="minTimeout != null">
+        min_timeout = #{minTimeout,jdbcType=BIGINT},
+      </if>
+      <if test="avgTimeout != null">
+        avg_timeout = #{avgTimeout,jdbcType=BIGINT},
+      </if>
+      <if test="th50Timeout != null">
+        th50_timeout = #{th50Timeout,jdbcType=BIGINT},
+      </if>
+      <if test="th95Timeout != null">
+        th95_timeout = #{th95Timeout,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.ruc.entity.TsbmRResult">
+    update tsbm_read_result
+    set batch_id = #{batchId,jdbcType=INTEGER},
+      clients = #{clients,jdbcType=INTEGER},
+      query_sum = #{querySum,jdbcType=BIGINT},
+      cost_time = #{costTime,jdbcType=BIGINT},
+      qps = #{qps,jdbcType=BIGINT},
+      success_ratio = #{successRatio,jdbcType=DECIMAL},
+      max_timeout = #{maxTimeout,jdbcType=BIGINT},
+      min_timeout = #{minTimeout,jdbcType=BIGINT},
+      avg_timeout = #{avgTimeout,jdbcType=BIGINT},
+      th50_timeout = #{th50Timeout,jdbcType=BIGINT},
+      th95_timeout = #{th95Timeout,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

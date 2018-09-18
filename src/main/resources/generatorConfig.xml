@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+  	<classPathEntry location="/Users/fasape/.m2/repository/mysql/mysql-connector-java/5.1.46/mysql-connector-java-5.1.46.jar" />
+  <context id="context1">
+  	<commentGenerator >  
+            <property name="suppressAllComments" value="true"/><!-- 是否取消注释 -->  
+            <property name="suppressDate" value="false" /> <!-- 是否生成注释代时间戳-->  
+    </commentGenerator>  
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://111.230.224.245:3306/tsbm" userId="fasape" password="Fasape_1230" />
+    <javaModelGenerator targetPackage="cn.edu.ruc.entity" targetProject="tsbm-web" />
+    <sqlMapGenerator targetPackage="cn.edu.ruc.mapper" targetProject="tsbm-web" />
+    <javaClientGenerator targetPackage="cn.edu.ruc.mapper" targetProject="tsbm-web" type="XMLMAPPER" />
+    <table schema="root" tableName="tsbm_read_result"  
+            domainObjectName="TsbmRResult" enableCountByExample="false"  
+            enableDeleteByExample="false" enableSelectByExample="false"  
+            enableUpdateByExample="false">  
+    </table> 
+     <table schema="root" tableName="tsbm_write_result"  
+            domainObjectName="TsbmWResult" enableCountByExample="false"  
+            enableDeleteByExample="false" enableSelectByExample="false"  
+            enableUpdateByExample="false">  
+    </table> 
+  </context>
+</generatorConfiguration>
