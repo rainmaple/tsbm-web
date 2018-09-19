@@ -11,14 +11,40 @@ public class TsbmBatch implements Serializable{
     private String name;
 
     private String templateId;
+    private String templateName;
 
     private Integer cfgId;
+    private String cfgName;
 
     private Integer testStatus=1;
 
     private Integer testType=1;//1 导入，2 写入 ，3 读 ，4 读背景下写 ， 5 写背景下读
+    private String progress;
+    public String getProgress() {
+		return progress;
+	}
 
-    private Date createTime = new Date();
+	public void setProgress(String progress) {
+		this.progress = progress;
+	}
+
+	public String getTemplateName() {
+		return templateName;
+	}
+
+	public void setTemplateName(String templateName) {
+		this.templateName = templateName;
+	}
+
+	public String getCfgName() {
+		return cfgName;
+	}
+
+	public void setCfgName(String cfgName) {
+		this.cfgName = cfgName;
+	}
+
+	private Date createTime = new Date();
 
     private Date startTime;
 

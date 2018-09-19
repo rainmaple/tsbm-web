@@ -5,7 +5,9 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="template_id" jdbcType="VARCHAR" property="templateId" />
+    <result column="template_name" jdbcType="VARCHAR" property="templateName" />
     <result column="cfg_id" jdbcType="INTEGER" property="cfgId" />
+    <result column="cfg_name" jdbcType="VARCHAR" property="cfgName" />
     <result column="test_status" jdbcType="INTEGER" property="testStatus" />
     <result column="test_type" jdbcType="INTEGER" property="testType" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -139,7 +141,8 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
     <select id="selectList" resultMap="BaseResultMap">
-  	   select * from tsbm_test_batch
+  	   select a.*,b.name template_name,c.name cfg_name 
+		from tsbm_test_batch a left join tsbm_templte b on a.template_id =b.id left join tsdb_config c on a.cfg_id=c.id 
   </select>
     <update id="updateTeststatucByCfgIdAndTmpId" >
     update tsbm_test_batch

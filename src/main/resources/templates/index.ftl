@@ -17,42 +17,8 @@
   <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
 </head>
 <body class="layui-layout-body hold-transition skin-blue sidebar-mini">
-<div class="layui-layout layui-layout-admin">
-   <header class="main-header">
-    <!-- Logo -->
-    <a href="#" class="logo">
-      <span class="logo-mini"><b>T</b>S</span>
-      <span class="logo-lg"><b>TSBM </b>WEB</span>
-    </a>
-    <nav class="navbar navbar-static-top" role="navigation">
-		     
-    </nav>
-  </header>
-    <aside class="main-sidebar">
-
-    <section class="sidebar">
-
-      <!-- Sidebar Menu -->
-      <ul class="sidebar-menu" data-widget="tree">
-        <li class="active" id="bashboard_li"><a href="#"><i class="fa fa-link"></i> <span>监控</span></a></li>
-        <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>参数配置</span>
-            <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="#" id="binding_li">绑定参数</a></li>
-            <li><a href="#" id="db_config_li">数据库参数</a></li>
-            <li><a href="#" id="template_dd">测试模板参数</a></li>
-          </ul>
-        </li>
-        <li><a href="#" id="batch"><i class="fa fa-link"></i> <span>性能测试</span></a></li>
-      </ul>
-    </section>
-  </aside>
-  
-  <div class="layui-body">
+<#include  "/common/left.ftl"/>
+  <div class="layui-body content-wrapper">
     <!-- 内容主体区域 -->
    <!--  <div>
 	    
@@ -60,14 +26,8 @@
     <!-- <div style="padding: 15px;padding-bottom: 1px;" id="body">
     </div> -->
   </div>
-  
-  <div class="layui-footer">
-    <!-- 底部固定区域 -->
-  </div>
-</div>
 <script src="/layui/layui.js"></script>
 <script src="/js/jquery.js"></script>
-<script src="/"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->

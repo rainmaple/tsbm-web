@@ -18,8 +18,11 @@ import cn.edu.ruc.entity.TsbmBatch;
 import cn.edu.ruc.entity.TsbmTemplate;
 import cn.edu.ruc.entity.TsdbBinding;
 import cn.edu.ruc.entity.TsdbCfg;
+import cn.edu.ruc.mapper.ImportLogMapper;
 import cn.edu.ruc.mapper.TsbmBatchMapper;
+import cn.edu.ruc.mapper.TsbmRResultMapper;
 import cn.edu.ruc.mapper.TsbmTemplateMapper;
+import cn.edu.ruc.mapper.TsbmWResultMapper;
 import cn.edu.ruc.mapper.TsdbBindingMapper;
 import cn.edu.ruc.mapper.TsdbCfgMapper;
 
@@ -29,7 +32,25 @@ public class BaseController {
 	@Resource
 	TsdbBindingMapper tsdbBindingMapper;
 	@Resource
+	ImportLogMapper importLogMapper;
+	@Resource
+	TsbmWResultMapper tsbmWResultMapper;
+	@Resource
+	TsbmRResultMapper tsbmRResultMapper;
+	@Resource
 	CheckCore checkCore;
+	@RequestMapping("param/list")
+	@ResponseBody
+	public ModelAndView listTsdbBinding(HttpServletRequest request,TsdbBinding tsdbBinding){
+		ModelAndView view =new ModelAndView("/param/list");
+		List<Object> bindingList = tsdbBindingMapper.selectList();
+		view.addObject("bindingList",bindingList);
+		List<Object> dbList = tsdbCfgMapper.selectList();
+		view.addObject("dbList",dbList);
+		List<Object> tmpList = templateMapper.selectList();
+		view.addObject("tmpList",tmpList);
+		return view;
+	}
 	@RequestMapping("add/binding")
 	@ResponseBody
 	public Object insertTsdbBinding(HttpServletRequest request,TsdbBinding tsdbBinding){
@@ -122,8 +143,39 @@ public class BaseController {
 //	@ResponseBody
 	public ModelAndView batchList(HttpServletRequest request,ModelAndView view) {
 		 view.setViewName("/batch/list");
-		List<Object> list = batchMapper.selectList();
+		List<TsbmBatch> list = batchMapper.selectList();
+		for(TsbmBatch batch:list){
+			Integer id = batch.getId();
+			Integer tmpId = Integer.parseInt(batch.getTemplateId());
+			double progressDouble=0.2;
+			if(tmpId.equals(1)){
+				//导入进度查询 import_log
+				progressDouble = importLogMapper.selectProgressByBatchId(id);
+			}else if(tmpId.equals(2)||tmpId.equals(4)){
+				//写入进度查询 write_result
+				int count = tsbmWResultMapper.countByBatchId(id);
+				TsbmTemplate tmp = templateMapper.selectByPrimaryKey(2);
+				String dynValues = tmp.getDynValues();
+				String[] split = dynValues.split(",");
+				int dynSum=split.length;
+				progressDouble=count/(double)dynSum;
+				
+			}else if(tmpId.equals(3)||tmpId.equals(5)){
+				//读取进度查询 read_result
+				int count = tsbmRResultMapper.countByBatchId(id);
+				TsbmTemplate tmp = templateMapper.selectByPrimaryKey(3);
+				String dynValues = tmp.getDynValues();
+				String[] split = dynValues.split(",");
+				int dynSum=split.length;
+				progressDouble=count/(double)dynSum;
+			}
+			batch.setProgress((int)(progressDouble*100)+"%");
+		}
 		view.addObject("list",list);
+		List<Object> dblist = tsdbCfgMapper.selectList();
+		view.addObject("dblist",dblist);
+		List<Object> tmpList = templateMapper.selectList();
+		view.addObject("tmplist",tmpList);
 		return view;
 	}
 	@RequestMapping("remove/batch")
@@ -147,7 +199,7 @@ public class BaseController {
 	@RequestMapping("batch/view")
 	public ModelAndView batchView(HttpServletRequest request,Long id,ModelAndView view) {
 		view.setViewName("/batch/view");
-		List<Object> list = batchMapper.selectList();
+		List<TsbmBatch> list = batchMapper.selectList();
 		view.addObject("list",list);
 		return view;
 	}

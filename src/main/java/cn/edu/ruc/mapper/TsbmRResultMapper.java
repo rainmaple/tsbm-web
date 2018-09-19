@@ -1,5 +1,7 @@
 package cn.edu.ruc.mapper;
 
+import org.apache.ibatis.annotations.Param;
+
 import cn.edu.ruc.entity.TsbmRResult;
 
 public interface TsbmRResultMapper {
@@ -14,4 +16,5 @@ public interface TsbmRResultMapper {
     int updateByPrimaryKeySelective(TsbmRResult record);
 
     int updateByPrimaryKey(TsbmRResult record);
+    int countByBatchId(@Param("batchId") int batchId);
 }

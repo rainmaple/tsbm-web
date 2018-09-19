@@ -1,9 +1,12 @@
 spring:
     datasource:
         name: tsbm
-        url: jdbc:mysql://111.230.224.245:3306/tsbm
-        username: fasape
-        password: Fasape_1230
+        #url: jdbc:mysql://111.230.224.245:3306/tsbm
+        url: jdbc:mysql://127.0.0.1:3306/tsbm
+        #username: fasape
+        username: root
+        #password: Fasape_1230
+        password: 1230
         # 使用druid数据源
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver

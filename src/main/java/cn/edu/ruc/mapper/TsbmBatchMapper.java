@@ -19,6 +19,6 @@ public interface TsbmBatchMapper {
 
     int updateByPrimaryKey(TsbmBatch record);
 
-	List<Object> selectList();
+	List<TsbmBatch> selectList();
 	void updateTeststatucByCfgIdAndTmpId(@Param("testStatus")int status,@Param("cfgId")int cfgId,@Param("tmpId")String tmpId);
 }

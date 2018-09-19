@@ -83,4 +83,7 @@
       </if>
     </trim>
   </insert>
+  <select id="selectProgressByBatchId" resultType="java.lang.Double">
+  		select IFNULL(max((seq+1)/sum_seq),0) progress from import_log where w_id=#{batchId}
+  </select>
 </mapper>

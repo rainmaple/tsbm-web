@@ -185,4 +185,7 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+    <select id="countByBatchId" resultType="java.lang.Integer">
+  		select count(1) from tsbm_write_result where batch_id=#{batchId}
+  </select>
 </mapper>
