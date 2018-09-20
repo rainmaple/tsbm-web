@@ -79,9 +79,9 @@
 								   		</table>
 			      	   			
 			      	   		</div>
-			      	   		<div class="col-xs-12">
+			      	   		<div class="col-xs-12" id="import_line_chart" style="min-height: 306px;min-width: 1200px;">
 			      	   			<!-- 折线图 -->
-			      	   			
+			      	   				
 			      	   		</div>
 			      	   </div>
 				 </div>
@@ -176,7 +176,10 @@
 								   		</table>
 			      	   			
 			      	   		</div>
-
+							<div class="col-xs-12" id="read_line_chart" style="min-height: 306px;min-width: 950px;">
+			      	   			<!-- 折线图 -->
+			      	   				
+			      	   		</div>
 			      	   </div>
 				 </div>
 			</div>
@@ -220,6 +223,10 @@
 			      	   				</div>
 			      	   			
 			      	   		</div>
+			      	   		<div class="col-xs-12" id="mul_append_line_chart" style="min-height: 306px;min-width: 950px;">
+			      	   			<!-- 折线图 -->
+			      	   				
+			      	   		</div>
 			      	   </div>
 				 </div>
 			</div>
@@ -262,6 +269,10 @@
 											  </tbody>
 								   		</table>
 			      	   			
+			      	   		</div>
+			      	   		<div class="col-xs-12" id="mul_read_line_chart" style="min-height: 306px;min-width: 950px;">
+			      	   			<!-- 折线图 -->
+			      	   				
 			      	   		</div>
 			      	   </div>
 				 </div>
@@ -312,7 +323,6 @@ $(function(){
 		var legend_datas=new Array()
 		var opt_series=new Array()
 		var x_Axis_data=new Array()
-		alert(1111)
 		$(data).each(function(){
 			 	legend_datas.push(this.cfgName);
 			 	var obj={};
@@ -335,7 +345,13 @@ $(function(){
 	initBar(data,'read_charts');
 	var data_line=[{'cfgName':'influxdb','values':[1,2,3,4,5,6],'keys':[1,3,5,10,30,50]},
 	{'cfgName':'iotdb','values':[3,2,1,6,3,2],'keys':[1,3,5,10,30,50]}];
+	var import_data_line=[{'cfgName':'influxdb','values':[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],'keys':[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]},
+		{'cfgName':'iotdb','values':[1,3,5,10,30,50,1,3,5,10,30,50,1,3,5,10,30,50],'keys':[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]}];
+	initBLine(import_data_line,'import_line_chart')
 	initBLine(data_line,'append_line_chart')
+	initBLine(data_line,'read_line_chart')
+	initBLine(data_line,'mul_append_line_chart')
+	initBLine(data_line,'mul_read_line_chart')
 })
 var dom_read = document.getElementById("read_charts");
 var dom_append = document.getElementById("append_charts");
@@ -357,7 +373,6 @@ option = {
     },
     legend: {
         data: ['Iotdb', 'Influxdb']
-//       data: ['Forest', 'Steppe', 'Desert', 'Wetland']
     },
 
     calculable: true,
@@ -374,17 +389,6 @@ option = {
         }
     ],
     series: [
-//      {
-//          name: 'Forest',
-//          type: 'bar',
-//          barGap: 0,
-//          data: [320, 332, 301, 334, 390]
-//      },
-//      {
-//          name: 'Steppe',
-//          type: 'bar',
-//          data: [220, 182, 191, 234, 290]
-//      },
         {
             name: 'Iotdb',
             type: 'bar',
