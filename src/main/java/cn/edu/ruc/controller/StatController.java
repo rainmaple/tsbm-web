@@ -1,5 +1,7 @@
 package cn.edu.ruc.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
@@ -31,6 +33,8 @@ public class StatController {
 	@RequestMapping("/index")
 	public ModelAndView index(){
 		ModelAndView view =new ModelAndView("/stat/index");
+		List<Object> dblist = tsdbCfgMapper.selectList();
+		view.addObject("dblist",dblist);
 		return view;
 	}
 }
