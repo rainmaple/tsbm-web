@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class StatBar implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String cfgName;
+	private Long cfgId;
 	private Long pps;
 	private Long costTime;
 	private Integer clients;
@@ -14,7 +15,7 @@ public class StatBar implements Serializable{
 	private Long maxTimeout;
 	private Long th50Timeout;
 	private Long th95Timeout;
-	private Integer status;
+	private Double successRatio;
 	public String getCfgName() {
 		return cfgName;
 	}
@@ -75,10 +76,16 @@ public class StatBar implements Serializable{
 	public void setTh95Timeout(Long th95Timeout) {
 		this.th95Timeout = th95Timeout;
 	}
-	public Integer getStatus() {
-		return status;
+	public Double getSuccessRatio() {
+		return successRatio;
 	}
-	public void setStatus(Integer status) {
-		this.status = status;
+	public void setSuccessRatio(Double successRatio) {
+		this.successRatio = successRatio;
+	}
+	public Long getCfgId() {
+		return cfgId;
+	}
+	public void setCfgId(Long cfgId) {
+		this.cfgId = cfgId;
 	}
 }

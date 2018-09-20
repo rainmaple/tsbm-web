@@ -5,6 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StatDataView implements Serializable {
+	public StatDataView() {
+		super();
+	}
+	public StatDataView(List<StatBar> bar, List<StatLine> line) {
+		super();
+		this.bar = bar;
+		this.line = line;
+	}
 	private static final long serialVersionUID = 1L;
 	private List<StatBar> bar=new ArrayList<StatBar>();
 	private List<StatLine> line=new ArrayList<StatLine>();

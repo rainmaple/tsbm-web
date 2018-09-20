@@ -15,6 +15,18 @@ public class StatView implements Serializable {
 	public void setImportData(StatDataView importData) {
 		this.importData = importData;
 	}
+	public StatView() {
+		super();
+	}
+	public StatView(StatDataView importData, StatDataView readData, StatDataView appendData, StatDataView mulAppendData,
+			StatDataView mulReadData) {
+		super();
+		this.importData = importData;
+		this.readData = readData;
+		this.appendData = appendData;
+		this.mulAppendData = mulAppendData;
+		this.mulReadData = mulReadData;
+	}
 	public StatDataView getReadData() {
 		return readData;
 	}

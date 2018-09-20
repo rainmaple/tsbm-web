@@ -35,7 +35,7 @@
 			      	   </div>
 			      	  <div class="box-body  no-padding col-xs-6">
 					  	 <div class="input-group input-group-sm">
-			                  <select id="cfg_ids" class="form-control select2 select2-hidden-accessible" multiple="" data-placeholder="Select Templates" style="width: 100%;" tabindex="-1" aria-hidden="true">
+			                  <select name="cfgIds" id="cfg_ids" class="form-control select2 select2-hidden-accessible" multiple="" data-placeholder="Select Templates" style="width: 100%;" tabindex="-1" aria-hidden="true">
 			                		<#if dblist?exists>
 								   		<#list dblist as data>
 								   			<option value="${data.id}">${data.name}</option>
