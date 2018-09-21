@@ -36,7 +36,7 @@
 		<div class="col-xs-12" >
 			  <div class="box" id="body">
 			  	   <div class="box-header">
-			           <h3 class="box-title">绑定参数</h3>
+			           <h3 class="box-title">绑定参数</h3><div type="submit" class="bth-bd-add btn btn-sm btn-primary btn-flat" style="float: right;">新增</div>
 			       </div>
 				   <div class="box-body table-responsive no-padding">
 				   		<table class="table table-hover" >
@@ -50,7 +50,10 @@
 							   <tbody id="tbody">
 							   	<#if bindingList?exists>
 							   		<#list bindingList as data>
-							   			<tr><td>${data.dbName}</td><td>${data.dbClass}</td><td></td>
+							   			<tr><td>${data.dbName}</td><td>${data.dbClass}</td>
+							   				<td><div type="submit" class="bth-bd-edit btn btn-sm btn-success  btn-flat" style="float: right;"  data-id="${data.id}">更新</div>&nbsp;
+							   				<div type="submit" class="bth-bd-del btn btn-sm btn-success  btn-flat" style="float: right;" data-id="${data.id}">删除</div>
+							   				</td>
 							   			 </tr>
 							   		</#list>
 							   </#if>
@@ -64,7 +67,7 @@
 		<div class="col-xs-12" >
 			  <div class="box" id="body">
 			  	   <div class="box-header">
-			           <h3 class="box-title">数据库参数</h3>
+			           <h3 class="box-title">数据库参数</h3><div type="submit" class="bth-dbcfg-add  btn btn-sm btn-primary btn-flat" style="float: right;">新增</div>
 			       </div>
 				   <div class="box-body table-responsive no-padding">
 				   		<table class="table table-hover" >
@@ -91,7 +94,10 @@
 							   			<td>${data.dbPort}</td>
 							   			<td>${data.dbUser}</td>
 							   			<td>${data.dbPasswd}</td>
-							   			<td></td>
+							   			<td><div type="submit" class="bth-dbcfg-edit btn btn-sm btn-success  btn-flat" style="float: right;" data-id="${data.id}">更新</div>&nbsp;
+							   				<div type="submit" class="bth-dbcfg-del btn btn-sm btn-success  btn-flat" style="float: right;" data-id="${data.id}">删除</div>
+							   				
+							   			</td>
 							   			 </tr>
 							   		</#list>
 							   </#if>
@@ -105,7 +111,7 @@
 		<div class="col-xs-12" >
 			  <div class="box" id="body">
 			  	   <div class="box-header">
-			           <h3 class="box-title">模板参数</h3>
+			           <h3 class="box-title">模板参数</h3><div type="submit" class="btn btn-sm btn-primary btn-flat" style="float: right;">新增</div>
 			       </div>
 				   <div class="box-body table-responsive no-padding">
 				   		<table class="table table-hover" >
@@ -130,7 +136,9 @@
 							   				<td>${data.dynStatus}</td>
 							   				<td>${data.deviceNum}</td>
 							   				<td>${data.sensorNum}</td>
-							   				<td></td>
+							   				<td>
+								   				<div type="submit" class="bth-tmp-edit btn btn-sm  btn-success  btn-flat"  style="float: right;" data-id="${data.id}">更新</div>
+							   				</td>
 							   			 </tr>
 							   		</#list>
 							   </#if>
@@ -148,6 +156,36 @@
 <!-- AdminLTE App -->
 <script src="/dist/js/adminlte.min.js"></script>
 <script>
+		$(function(){
+				//新增 绑定参数
+				$('.content-wrapper').on('click','.bth-bd-add',function(){
+						window.location.href='/base/binding/add';
+				});
+				$('.content-wrapper').on('click','.bth-bd-edit',function(){
+						window.location.href='/base/binding/edit?id='+$(this).attr('data-id');
+				});
+				$('.content-wrapper').on('click','.bth-bd-del',function(){
+						if(confirm('请确定是否删除')){
+							window.location.href='/base/binding/del?id='+$(this).attr('data-id');
+						}
+						
+				});
+				//新增 数据库配置参数
+				$('.content-wrapper').on('click','.bth-dbcfg-add',function(){
+						window.location.href='/base/db_cfg/add';
+				});
+				$('.content-wrapper').on('click','.bth-dbcfg-edit',function(){
+						window.location.href='/base/db_cfg/edit?id='+$(this).attr('data-id');
+				});
+				$('.content-wrapper').on('click','.bth-dbcfg-del',function(){
+					if(confirm('请确定是否删除')){
+							window.location.href='/base/db_cfg/del?id='+$(this).attr('data-id');
+					}
+				});
+				$('.content-wrapper').on('click','.bth-tmp-edit',function(){
+						window.location.href='/base/template/edit/'+$(this).attr('data-id');
+				});
+		})
 </script>
 </body>
 </html>

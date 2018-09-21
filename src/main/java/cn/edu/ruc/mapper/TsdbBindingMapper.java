@@ -11,4 +11,5 @@ public interface TsdbBindingMapper {
 
 	void deleteById(Long id);
 	TsdbBinding selectById(Integer id);
+	void updateById(TsdbBinding tsdbBinding);
 }

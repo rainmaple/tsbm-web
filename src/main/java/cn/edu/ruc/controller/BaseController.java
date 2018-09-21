@@ -9,6 +9,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -40,8 +42,7 @@ public class BaseController {
 	@Resource
 	CheckCore checkCore;
 	@RequestMapping("param/list")
-	@ResponseBody
-	public ModelAndView listTsdbBinding(HttpServletRequest request,TsdbBinding tsdbBinding){
+	public ModelAndView listTsdbBinding(HttpServletRequest request){
 		ModelAndView view =new ModelAndView("/param/list");
 		List<Object> bindingList = tsdbBindingMapper.selectList();
 		view.addObject("bindingList",bindingList);
@@ -51,72 +52,106 @@ public class BaseController {
 		view.addObject("tmpList",tmpList);
 		return view;
 	}
-	@RequestMapping("add/binding")
-	@ResponseBody
-	public Object insertTsdbBinding(HttpServletRequest request,TsdbBinding tsdbBinding){
+	@RequestMapping("binding/add")
+	public ModelAndView bindingadd(HttpServletRequest request){
+		ModelAndView view=new ModelAndView("/binding/add");
+		return view;
+	}
+	@RequestMapping("binding/edit")
+	public ModelAndView bindingEdit(HttpServletRequest request,Long id){
+		ModelAndView view=new ModelAndView("/binding/edit");
+		TsdbBinding model = tsdbBindingMapper.selectById(id.intValue());
+		view.addObject("model",model);
+		return view;
+	}
+	@RequestMapping("binding/save")
+	public ModelAndView bindingSave(HttpServletRequest request,TsdbBinding tsdbBinding){
 		tsdbBindingMapper.insertTsbinding(tsdbBinding);
-		return tsdbBinding;
+		return listTsdbBinding(request);
 	}
-	@RequestMapping("list/binding")
-	@ResponseBody
-	public Object bindingList(HttpServletRequest request) {
-		List<Object> list = tsdbBindingMapper.selectList();
-		return ResponseMap.okMap(list);
+	@RequestMapping("binding/update")
+	public ModelAndView bindingUpdate(HttpServletRequest request,TsdbBinding tsdbBinding){
+		tsdbBindingMapper.updateById(tsdbBinding);
+		return listTsdbBinding(request);
 	}
-	@RequestMapping("remove/binding")
-	@ResponseBody
-	public Object bindingRemove(HttpServletRequest request,Long id) {
+	@RequestMapping("binding/del")
+	public ModelAndView bindingRemove(HttpServletRequest request,Long id) {
 		tsdbBindingMapper.deleteById(id);
-		return ResponseMap.okMap(null);
+		return listTsdbBinding(request);
 	}
 	
 	
 	// db_cfg
 	@Resource
 	TsdbCfgMapper tsdbCfgMapper;
-	@RequestMapping("add/db_cfg")
-	@ResponseBody
-	public Object insertTsdbCfg(HttpServletRequest request,TsdbCfg cfg){
+	@RequestMapping("db_cfg/add")
+	public ModelAndView insertTsdbCfg(HttpServletRequest request){
+		ModelAndView view=new ModelAndView("/db_cfg/add");
+		List<Object> bdlist = tsdbBindingMapper.selectList();
+		view.addObject("bdlist",bdlist);
+		return view;
+	}
+	@RequestMapping("db_cfg/edit")
+	public ModelAndView insertTsdbCfg(HttpServletRequest request,Long id){
+		ModelAndView view=new ModelAndView("/db_cfg/edit");
+		TsdbCfg cfg = tsdbCfgMapper.selectByPrimaryKey(id.intValue());
+		List<Object> bdlist = tsdbBindingMapper.selectList();
+		view.addObject("bdlist",bdlist);
+		view.addObject("model",cfg);
+		return view;
+	}
+	@RequestMapping("db_cfg/save")
+	public ModelAndView tsdbCfgsave(HttpServletRequest request,TsdbCfg cfg){
 		tsdbCfgMapper.insert(cfg);
-		// TODO 新增批次
-		return cfg;
+		return listTsdbBinding(request);
 	}
-	@RequestMapping("list/db_cfg")
-	@ResponseBody
-	public Object dbCfgList(HttpServletRequest request) {
-		List<Object> list = tsdbCfgMapper.selectList();
-		return ResponseMap.okMap(list);
+	@RequestMapping("db_cfg/update")
+	public ModelAndView tsdbCfgUpdate(HttpServletRequest request,TsdbCfg cfg){
+		tsdbCfgMapper.updateByPrimaryKeySelective(cfg);
+		return listTsdbBinding(request);
 	}
-	@RequestMapping("remove/db_cfg")
-	@ResponseBody
-	public Object dbCfgRemove(HttpServletRequest request,Long id) {
+	@RequestMapping("db_cfg/del")
+	public ModelAndView dbCfgRemove(HttpServletRequest request,Long id) {
 		tsdbCfgMapper.deleteByPrimaryKey(id.intValue());
-		return ResponseMap.okMap(null);
+		return listTsdbBinding(request);
 	}
 	
 	
 	@Resource
 	TsbmTemplateMapper templateMapper;
-	//template
-	@RequestMapping("add/template")
-	@ResponseBody
-	public Object insertTemplate(HttpServletRequest request,TsbmTemplate template){
-		//写入
-		templateMapper.insert(template);
-		return template;
+	@RequestMapping("template/edit/{id}")
+	public ModelAndView editTemplate(HttpServletRequest request,@PathVariable(name="id")Long id){
+		ModelAndView view=new ModelAndView("/template/edit");
+		System.out.println(id);
+		TsbmTemplate model = templateMapper.selectByPrimaryKey(id.intValue());
+		view.addObject("model",model);
+		return view;
 	}
-	@RequestMapping("list/template")
-	@ResponseBody
-	public Object templateList(HttpServletRequest request) {
-		List<Object> list = templateMapper.selectList();
-		return ResponseMap.okMap(list);
+	@RequestMapping("template/update")
+	public ModelAndView tsdbCfgsave(HttpServletRequest request,TsbmTemplate record,BindingResult bindingResult){
+		templateMapper.updateByPrimaryKeySelective(record);
+		return listTsdbBinding(request);
 	}
-	@RequestMapping("remove/template")
-	@ResponseBody
-	public Object templateRemove(HttpServletRequest request,Long id) {
-		templateMapper.deleteByPrimaryKey(id.intValue());
-		return ResponseMap.okMap(null);
-	}
+//	//template
+//	@RequestMapping("add/template")
+//	@ResponseBody
+//	public Object insertTemplate(HttpServletRequest request,TsbmTemplate template){
+//		//写入
+//		templateMapper.insert(template);
+//		return template;
+//	}
+//	@RequestMapping("list/template")
+//	@ResponseBody
+//	public Object templateList(HttpServletRequest request) {
+//		List<Object> list = templateMapper.selectList();
+//		return ResponseMap.okMap(list);
+//	}
+//	@RequestMapping("remove/template")
+//	@ResponseBody
+//	public Object templateRemove(HttpServletRequest request,Long id) {
+//		templateMapper.deleteByPrimaryKey(id.intValue());
+//		return ResponseMap.okMap(null);
+//	}
 	
 	@Resource
 	TsbmBatchMapper batchMapper;

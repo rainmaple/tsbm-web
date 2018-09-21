@@ -55,13 +55,11 @@ public class StatController {
 	@RequestMapping("/get")
 	@ResponseBody
 	public Object initStatData(@RequestParam(required=false,value = "cfgIds[]")Integer[] cfgIds) {
-		System.out.println(cfgIds);
 		List<StatBar> importBar = statMapper.importBar(cfgIds);
 		List<LineMap> importLines = statMapper.importLine(cfgIds);
 		StatDataView importDataView = generateDataView(importBar, importLines);
 		List<StatBar> appendBar = statMapper.appendBar(cfgIds, 2);
 		List<LineMap> appendLine = statMapper.appendLine(cfgIds, 2);
-		generateDataView(appendBar, appendLine);
 		List<StatBar> readBar = statMapper.readBar(cfgIds, 3);
 		List<LineMap> readLine = statMapper.readLine(cfgIds, 3);
 		List<StatBar> mAppendBar = statMapper.appendBar(cfgIds, 4);

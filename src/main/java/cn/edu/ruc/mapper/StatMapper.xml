@@ -14,6 +14,7 @@
 		    <result column="min_timeout" jdbcType="BIGINT" property="minTimeout" />
 		    <result column="avg_timeout" jdbcType="BIGINT" property="meanTimeout" />
 		    <result column="th50_timeout" jdbcType="BIGINT" property="th50Timeout" />
+		    <result column="th95_timeout" jdbcType="BIGINT" property="th95Timeout" />
 	</resultMap>
 	<resultMap type="cn.edu.ruc.view.LineMap" id="LineMap">
 			 <result column="cfg_id" jdbcType="BIGINT" property="cfgId" />

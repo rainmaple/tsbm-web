@@ -278,6 +278,51 @@
 				 </div>
 			</div>
 		</div>
+
+
+			<!-- 遮罩层模态框（Modal） -->
+			<div class="modal fade loading"  id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+					<div class="col-md-6" style="margin: auto;  position: absolute;  top: 30%; left: 0; bottom: 0; right: 0;">
+	          <div class="box box-info box-solid">
+		            <div class="box-header">
+		              <h3 class="box-title">正在分析数据。。。</h3>
+		            </div>
+		            <div class="box-body">
+		              	
+		              	<div class="progress  progress-xl progress-striped active">
+			                    <div id="loadProgress" class="progress-bar progress-bar-danger" style="width: 100%"></div>
+			              </div>
+		            </div>
+		            <!-- /.box-body -->
+		            <!-- Loading (remove the following to stop the loading)-->
+		            <div class="overlay">
+		              <i class="fa fa-refresh fa-spin"></i>
+		            </div>
+	            <!-- end loading -->
+	          </div>
+          <!-- /.box -->
+        </div>
+			</div>
+		<div class="modal modal-info fade" id="modal-info">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Info Modal</h4>
+              </div>
+              <div class="modal-body">
+                <p>One fine body&hellip;</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline">Save changes</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
 	</section>
   </div>
 <script src="/layui/layui.js"></script>
@@ -299,6 +344,12 @@ $(function(){
 	$('.select2').select2()
 	$(".layui-body").on('click','#test_button',function(){
 			var cfgIds=$('#cfg_ids').val();
+			if(!cfgIds){
+				alert('请先选择配置');
+				return;
+			}
+			$('#loadingModal').modal('show');
+			$('.layui-body #loadProgress').css('width','10%');
 			$.ajax({
 				type:"post",
 				url:"/stat/get",
@@ -306,31 +357,38 @@ $(function(){
 				async:true,
 				success:function(data){
 					console.log(data)
+					$('.layui-body #loadProgress').css('width','60%');
 					// init import
 					if(data.importData){
 						initImportTable(data.importData.bar,'#import_tbody');
 						initBLine(data.importData.line,'import_line_chart');
 					}
+					$('.layui-body #loadProgress').css('width','65%');
 					if(data.appendData){
-							initRWTable(data.importData.bar,'#append_tbody');
-							initBar(data.importData.bar,'#append_charts');
-							initBLine(data.importData.line,'#append_line_chart');
+							initRWTable(data.appendData.bar,'#append_tbody');
+							initBar(data.appendData.bar,'append_charts');
+							initBLine(data.appendData.line,'append_line_chart');
 					}
+					$('.layui-body #loadProgress').css('width','68%');
 					if(data.readData){
-							initRWTable(data.importData.bar,'#read_tbody');
-							initBar(data.importData.bar,'#read_charts');
-							initBLine(data.importData.line,'#read_line_chart');
+							initRWTable(data.readData.bar,'#read_tbody');
+							initBar(data.readData.bar,'read_charts');
+							initBLine(data.readData.line,'read_line_chart');
 					}
+					$('.layui-body #loadProgress').css('width','72%');
 					if(data.mulAppendData){
-							initRWTable(data.importData.bar,'#mappend_tbody');
-							initBar(data.importData.bar,'#mul_append_charts');
-							initBLine(data.importData.line,'#mul_append_line_chart');						
+							initRWTable(data.mulAppendData.bar,'#mappend_tbody');
+							initBar(data.mulAppendData.bar,'mul_append_charts');
+							initBLine(data.mulAppendData.line,'mul_append_line_chart');						
 					}
+					$('.layui-body #loadProgress').css('width','81%');
 					if(data.mulReadData){
-							initRWTable(data.importData.bar,'#mread_tbody');
-							initBar(data.importData.bar,'#mul_read_charts');
-							initBLine(data.importData.line,'#mul_read_line_chart');						
+							initRWTable(data.mulReadData.bar,'#mread_tbody');
+							initBar(data.mulReadData.bar,'mul_read_charts');
+							initBLine(data.mulReadData.line,'mul_read_line_chart');						
 					}
+					$('.layui-body #loadProgress').css('width','99%');
+					$('#loadingModal').modal('hide');
 				}
 			});
 	})
@@ -368,11 +426,11 @@ $(function(){
 			  var obj={};
 			  obj.name=this.cfgName;
 			  obj.type='bar',
-			  obj.data=[Math.log(this.meanTimeout)/Math.log(10),
-			  Math.log(this.minTimeout)/Math.log(10),
-			  Math.log(this.maxTimeout)/Math.log(10),
-			  Math.log(this.th50Timeout)/Math.log(10),
-			  Math.log(this.th95Timeout)/Math.log(10)]
+			  obj.data=[(Math.log(this.meanTimeout)/Math.log(10)).toFixed(2),
+			  (Math.log(this.minTimeout)/Math.log(10)).toFixed(2),
+			  (Math.log(this.maxTimeout)/Math.log(10)).toFixed(2),
+			  (Math.log(this.th50Timeout)/Math.log(10)).toFixed(2),
+			  (Math.log(this.th95Timeout)/Math.log(10)).toFixed(2)]
 			  opt_series.push(obj);
 		})
 		barChart_option.legend.data=legend_datas;

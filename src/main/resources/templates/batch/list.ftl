@@ -80,7 +80,7 @@
 							   		<#list list as data>
 							   			<tr><td>${data.name}</td><td>${data.cfgName}</td><td>${data.templateName}</td>
 							   			<td>
-											<div class="progress progress-xs progress-striped active col-xs-10">
+											<div class="progress progress-sm progress-striped active ">
 			                    			  <div class="progress-bar progress-bar-primary" style="width: ${data.progress!}"></div>
 			                   				 </div><a>${data.progress!}</a>
 							   			</td> </tr>
