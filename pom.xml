@@ -70,7 +70,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-		<resources>
+		<!-- <resources>
 		     <resource>
 		          <directory>src/main/resources</directory>
 		          <includes>
@@ -83,7 +83,7 @@
 			        <include>**/*.xml</include>
 			    </includes>
 			</resource>
-		 </resources>
+		 </resources> -->
 	</build>
 
 
