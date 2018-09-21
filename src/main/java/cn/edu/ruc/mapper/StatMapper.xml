@@ -12,7 +12,7 @@
 		    <result column="success_ratio" jdbcType="DECIMAL" property="successRatio" />
 		    <result column="max_timeout" jdbcType="BIGINT" property="maxTimeout" />
 		    <result column="min_timeout" jdbcType="BIGINT" property="minTimeout" />
-		    <result column="avg_timeout" jdbcType="BIGINT" property="avgTimeout" />
+		    <result column="avg_timeout" jdbcType="BIGINT" property="meanTimeout" />
 		    <result column="th50_timeout" jdbcType="BIGINT" property="th50Timeout" />
 	</resultMap>
 	<resultMap type="cn.edu.ruc.view.LineMap" id="LineMap">
@@ -24,12 +24,23 @@
 		select tc.`name` cfg_name,tc.`id` cfg_id,avg(il.pps) pps,max(il.sum_points) sum,max(il.end_time)-min(il.begin_time) cost_iime,1 success_ratio
 		from tsdb_config tc ,import_log il
 		where il.w_id= (select max(id) from tsbm_test_batch where template_id=1 and cfg_id=tc.id)
+		and tc.id in
+		<foreach collection="cfgIds" item="cfgId" index="index"
+            open="(" close=")" separator=",">
+            #{cfgId}
+        </foreach>
 		group by tc.id,tc.`name`
 	</select>
 	<select id="importLine" resultMap="LineMap">
 		select tc.id cfg_id,il.pps value
 		from tsdb_config tc ,import_log il
 		where  il.w_id= (select max(id) from tsbm_test_batch where template_id=1 and cfg_id=tc.id)
+		and tc.id in
+		<foreach collection="cfgIds" item="cfgId" index="index"
+            open="(" close=")" separator=",">
+            #{cfgId}
+        </foreach>
+		
 	</select>
 	<select id="appendBar" resultMap="BarMap">
 		select tmp.*,
@@ -39,12 +50,22 @@
 		min(min_timeout) min_timeout,min(avg_timeout) avg_timeout,min(th50_timeout) th50_timeout,min(th95_timeout) th95_timeout
 		from tsdb_config tc ,tsbm_write_result twr
 		where  twr.batch_id= (select max(id) from tsbm_test_batch where template_id=#{tmpId} and cfg_id=tc.id)
+		and tc.id in
+		<foreach collection="cfgIds" item="cfgId" index="index"
+            open="(" close=")" separator=",">
+            #{cfgId}
+        </foreach>
 		group by tc.id,tc.name,twr.batch_id) tmp
 	</select>
 	<select id="appendLine"  resultMap="LineMap">
-		select tc.id cfg_id,twr.clients key,twr.pps value
+		select tc.id cfg_id,twr.clients `key`,twr.pps `value`
 		from tsdb_config tc ,tsbm_write_result twr
 		where  twr.batch_id= (select max(id) from tsbm_test_batch where template_id=#{tmpId} and cfg_id=tc.id)
+		and tc.id in
+		<foreach collection="cfgIds" item="cfgId" index="index"
+            open="(" close=")" separator=",">
+            #{cfgId}
+        </foreach>
 		order by tc.id
 	</select>
 	<select id="readBar" resultMap="BarMap">
@@ -55,12 +76,22 @@
 		min(min_timeout) min_timeout,min(avg_timeout) avg_timeout,min(th50_timeout) th50_timeout,min(th95_timeout) th95_timeout
 		from tsdb_config tc ,tsbm_read_result twr
 		where  twr.batch_id= (select max(id) from tsbm_test_batch where template_id=#{tmpId} and cfg_id=tc.id)
+		and tc.id in
+		<foreach collection="cfgIds" item="cfgId" index="index"
+            open="(" close=")" separator=",">
+            #{cfgId}
+        </foreach>
 		group by tc.id,tc.name,twr.batch_id) tmp
 	</select>
 	<select id="readLine" resultMap="LineMap">
-		select tc.id cfg_id,twr.clients key,twr.qps value
+		select tc.id cfg_id,twr.clients `key`,twr.qps `value`
 		from tsdb_config tc ,tsbm_read_result twr
 		where  twr.batch_id= (select max(id) from tsbm_test_batch where template_id=#{tmpId} and cfg_id=tc.id)
+		and tc.id in
+		<foreach collection="cfgIds" item="cfgId" index="index"
+            open="(" close=")" separator=",">
+            #{cfgId}
+        </foreach>
 		order by tc.id
 	</select>
 </mapper>

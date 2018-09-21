@@ -54,27 +54,49 @@ public class StatController {
 	}
 	@RequestMapping("/get")
 	@ResponseBody
-	public Object initStatData(@RequestParam(required=false)Integer[] cfgIds) {
+	public Object initStatData(@RequestParam(required=false,value = "cfgIds[]")Integer[] cfgIds) {
+		System.out.println(cfgIds);
 		List<StatBar> importBar = statMapper.importBar(cfgIds);
+		List<LineMap> importLines = statMapper.importLine(cfgIds);
+		StatDataView importDataView = generateDataView(importBar, importLines);
+		List<StatBar> appendBar = statMapper.appendBar(cfgIds, 2);
+		List<LineMap> appendLine = statMapper.appendLine(cfgIds, 2);
+		generateDataView(appendBar, appendLine);
+		List<StatBar> readBar = statMapper.readBar(cfgIds, 3);
+		List<LineMap> readLine = statMapper.readLine(cfgIds, 3);
+		List<StatBar> mAppendBar = statMapper.appendBar(cfgIds, 4);
+		List<LineMap> mAppendLine = statMapper.appendLine(cfgIds, 4);
+		List<StatBar> mReadBar = statMapper.readBar(cfgIds, 5);
+		List<LineMap> mReadLine = statMapper.readLine(cfgIds, 5);
+		StatView view =new StatView(importDataView, generateDataView(readBar, readLine), generateDataView(appendBar, appendLine), generateDataView(mAppendBar, mAppendLine), generateDataView(mReadBar, mReadLine));
+		return view;
+	}
+	// 根据数据生成
+	private StatDataView generateDataView(List<StatBar> bars,
+			List<LineMap> importLines) {
 		Map<Long,String> cfgKeyValue=new HashMap<Long,String>();
 		Map<Long,StatLine> cfgKeyLines=new HashMap<Long,StatLine>();
-		for(StatBar bar:importBar) {
+		for(StatBar bar:bars) {
 			cfgKeyValue.put(bar.getCfgId(), bar.getCfgName());
 			StatLine statLine = new StatLine();
 			statLine.setCfgName(bar.getCfgName());
 			cfgKeyLines.put(bar.getCfgId(), statLine);
 		}
-		List<LineMap> importLines = statMapper.importLine(cfgIds);
 		for(int i=1;i<=importLines.size();i++) {
-			StatLine statLine = cfgKeyLines.get(importLines.get(i-1).getCfgId());
-			statLine.getKeys().add(statLine.getKeys().size()+1);
-			statLine.getValues().add(importLines.get(i-1).getValue());
+			LineMap lineMap = importLines.get(i-1);
+			StatLine statLine = cfgKeyLines.get(lineMap.getCfgId());
+			if(lineMap.getKey()==null){
+				statLine.getKeys().add(statLine.getKeys().size()+1);
+			}else{
+				statLine.getKeys().add(lineMap.getKey().intValue());
+			}
+			statLine.getValues().add(lineMap.getValue());
 		}
 		List<StatLine> lines=new ArrayList<StatLine>();
-		for(StatBar bar:importBar) {
+		for(StatBar bar:bars) {
 			lines.add(cfgKeyLines.get(bar.getCfgId()));
 		}
-		StatDataView importDataView = new StatDataView(importBar, lines);
+		StatDataView importDataView = new StatDataView(bars, lines);
 		return importDataView;
 	}
 }

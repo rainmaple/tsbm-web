@@ -297,6 +297,69 @@ layui.use('element', function(){
 });
 $(function(){
 	$('.select2').select2()
+	$(".layui-body").on('click','#test_button',function(){
+			var cfgIds=$('#cfg_ids').val();
+			$.ajax({
+				type:"post",
+				url:"/stat/get",
+				data:{cfgIds:cfgIds},
+				async:true,
+				success:function(data){
+					console.log(data)
+					// init import
+					if(data.importData){
+						initImportTable(data.importData.bar,'#import_tbody');
+						initBLine(data.importData.line,'import_line_chart');
+					}
+					if(data.appendData){
+							initRWTable(data.importData.bar,'#append_tbody');
+							initBar(data.importData.bar,'#append_charts');
+							initBLine(data.importData.line,'#append_line_chart');
+					}
+					if(data.readData){
+							initRWTable(data.importData.bar,'#read_tbody');
+							initBar(data.importData.bar,'#read_charts');
+							initBLine(data.importData.line,'#read_line_chart');
+					}
+					if(data.mulAppendData){
+							initRWTable(data.importData.bar,'#mappend_tbody');
+							initBar(data.importData.bar,'#mul_append_charts');
+							initBLine(data.importData.line,'#mul_append_line_chart');						
+					}
+					if(data.mulReadData){
+							initRWTable(data.importData.bar,'#mread_tbody');
+							initBar(data.importData.bar,'#mul_read_charts');
+							initBLine(data.importData.line,'#mul_read_line_chart');						
+					}
+				}
+			});
+	})
+	function initImportTable(data,id){
+		$(id).html('');
+		$(data).each(function(){
+				var tr='<tr><td>'+this.cfgName+'</td>'+
+							'<td>'+this.pps+'</td>'+
+							'<td>'+this.sum+'</td>'+
+							'<td>'+this.costTime+'</td>'+
+							'<td>'+this.successRatio+'</td></tr>';
+				$(id).append(tr);
+		})
+	}
+	function initRWTable(data,id){
+		$(id).html('');
+		$(data).each(function(){
+				var tr='<tr><td>'+this.cfgName+'</td>'+
+							'<td>'+this.pps+'</td>'+
+							'<td>'+this.clients+'</td>'+
+							'<td>'+this.sum+'</td>'+
+							'<td>'+this.maxTimeout+'</td>'+
+							'<td>'+this.minTimeout+'</td>'+
+							'<td>'+this.meanTimeout+'</td>'+
+							'<td>'+this.th50Timeout+'</td>'+
+							'<td>'+this.th95Timeout+'</td></tr>';
+				$(id).append(tr);
+		})
+	}
 	function initBar(data,id){
 		var legend_datas=new Array()
 		var opt_series=new Array()

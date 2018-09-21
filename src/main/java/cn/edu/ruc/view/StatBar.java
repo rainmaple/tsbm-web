@@ -6,6 +6,13 @@ public class StatBar implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String cfgName;
 	private Long cfgId;
+	private Long batchId;
+	public Long getBatchId() {
+		return batchId;
+	}
+	public void setBatchId(Long batchId) {
+		this.batchId = batchId;
+	}
 	private Long pps;
 	private Long costTime;
 	private Integer clients;
