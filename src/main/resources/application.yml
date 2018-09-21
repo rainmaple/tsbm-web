@@ -17,5 +17,5 @@ spring:
     
 mybatis:
   typeAliasesPackage: cn.edu.ruc.entity
-  #mapperLocations: classpath:mapper/*.xml
-  mapper-locations: classpath:mapper/*.xml
+  mapperLocations: classpath:mapper/*.xml
+  #mapper-locations: classpath:mapper/*.xml
