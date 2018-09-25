@@ -85,6 +85,12 @@ public class CheckCore {
 							if(first[0]+1>=first[1]) {
 								break;
 							}
+						}else{
+							try {
+								Thread.sleep(100L);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
 						}
 					}
 				}

@@ -118,7 +118,6 @@ $(function(){
 		  })
 	})
 	$('.layui-layout-body').on('click','#test_button',function(){
-		alert(1111)
 		var tmpIds=$('#id_tmp_ids').val();
 		var cfgId=$('#id_cfg_id').val();
 		$.ajax({
@@ -127,6 +126,7 @@ $(function(){
 			type:'post',
 			async:false,
 			success:function(res){
+					alert('提交测试成功！在测试完毕之前请勿再次提交，以免影响测试结果！')
 			}
 		})
 		return false
