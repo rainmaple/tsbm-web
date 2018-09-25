@@ -77,8 +77,8 @@ public class CheckCore {
 				@Override
 				public void run() {
 					while(true) {
-						if(writeLogs.size()>0) {
-							long[] first = writeLogs.removeFirst();
+						if(biz.writeLogs.size()>0) {
+							long[] first = biz.writeLogs.removeFirst();
 							ImportLog record = logArrays2Log(first, batchId);
 							// 讲日志保存到数据库
 							importLogMapper.insert(record);
