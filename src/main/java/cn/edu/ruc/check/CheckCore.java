@@ -77,8 +77,6 @@ public class CheckCore {
 				@Override
 				public void run() {
 					while(true) {
-						System.out.println("size:"+writeLogs.size());
-						System.out.println("origin size:"+biz.writeLogs.size());
 						if(writeLogs.size()>0) {
 							long[] first = writeLogs.removeFirst();
 							ImportLog record = logArrays2Log(first, batchId);
@@ -94,6 +92,7 @@ public class CheckCore {
 			pool.shutdown();
 			TsWriteResult result = biz.insertPoints();
 			TsbmWResult baseResult2WebResult = baseResult2WebResult(result, batchId);
+			baseResult2WebResult.setClients(tsParamConfig.getWriteClients());
 			tsbmWResultMapper.insert(baseResult2WebResult);
 		} catch (Exception e) {
 			e.printStackTrace();
