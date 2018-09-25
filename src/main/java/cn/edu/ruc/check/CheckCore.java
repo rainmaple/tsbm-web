@@ -94,6 +94,7 @@ public class CheckCore {
 			pool.shutdown();
 			TsWriteResult result = biz.insertPoints();
 			TsbmWResult baseResult2WebResult = baseResult2WebResult(result, batchId);
+			baseResult2WebResult.setClients(tsParamConfig.getWriteClients());
 			tsbmWResultMapper.insert(baseResult2WebResult);
 		} catch (Exception e) {
 			e.printStackTrace();
