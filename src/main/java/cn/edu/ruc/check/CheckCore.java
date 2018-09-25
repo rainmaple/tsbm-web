@@ -209,6 +209,7 @@ public class CheckCore {
 			e.printStackTrace();
 		}
 		readTest(binding, cfg, tmp, batchId);
+		statusFlag[0]=true;
 	}
 	public TsbmWResult baseResult2WebResult(TsWriteResult result,Integer batchId) {
 		TsbmWResult wResult=new TsbmWResult();
