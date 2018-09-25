@@ -77,6 +77,8 @@ public class CheckCore {
 				@Override
 				public void run() {
 					while(true) {
+						System.out.println("size:"+writeLogs.size());
+						System.out.println("origin size:"+biz.writeLogs.size());
 						if(writeLogs.size()>0) {
 							long[] first = writeLogs.removeFirst();
 							ImportLog record = logArrays2Log(first, batchId);
