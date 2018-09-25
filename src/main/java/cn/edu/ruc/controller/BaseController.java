@@ -1,6 +1,8 @@
 package cn.edu.ruc.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -240,32 +243,33 @@ public class BaseController {
 	}
 	@RequestMapping("db/start_test")
 	@ResponseBody
-	public Object startTestDB(HttpServletRequest request,final Integer id) {
+	public Object startTestDB(HttpServletRequest request,@RequestParam("tmpIds[]")final Integer[] tmpIds,final Integer cfgId) {
+		SimpleDateFormat sdf =new SimpleDateFormat("yyyyMMdd HHmmss");
+		String dateStr = sdf.format(new Date());
 		// 1，新增对应批次
-		final TsdbCfg cfg = tsdbCfgMapper.selectByPrimaryKey(id);
-		final List<Object> tmps = templateMapper.selectList();
+		final TsdbCfg cfg = tsdbCfgMapper.selectByPrimaryKey(cfgId);
+		List<TsbmTemplate> tmps = templateMapper.selectListByIds(tmpIds);
 		final List<TsbmBatch> batchs=new ArrayList<TsbmBatch>();
 		for(Object obj:tmps) {
 			TsbmTemplate tmp=(TsbmTemplate)obj;
 			TsbmBatch batch= new TsbmBatch();
-			batch.setCfgId(id);//db_id
+			batch.setCfgId(cfgId);//db_id
 			batch.setTemplateId(tmp.getId().toString());
 			batch.setTestStatus(1);
-			batch.setName(cfg.getDbName()+"_"+tmp.getName());
+			batch.setName(cfg.getName()+"_"+tmp.getName()+"_"+dateStr);
 			batchMapper.insert(batch);
 			batchs.add(batch);
-			System.out.println(batch.getId());
 		}
-		// 2，开始测试对应数据库   5个测试模板
+		// 2，开始测试对应数据库   测试模板
 		ExecutorService pool = Executors.newFixedThreadPool(5);
 		pool.execute(new Runnable() {
 			@Override
 			public void run() {
-				TsdbBinding binding = tsdbBindingMapper.selectById(id);
 				for(TsbmBatch batch:batchs) {
 					Integer cfgId = batch.getCfgId();
 					String tmpId = batch.getTemplateId();
 					TsdbCfg cfg = tsdbCfgMapper.selectByPrimaryKey(cfgId);
+					TsdbBinding binding = tsdbBindingMapper.selectById(cfg.getBindingId());
 					TsbmTemplate tmp = templateMapper.selectByPrimaryKey(Integer.parseInt(tmpId));
 					boolean main = checkCore.main(binding, cfg, tmp,batch.getId());
 				}

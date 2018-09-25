@@ -344,4 +344,13 @@
   <select id="selectList" resultMap="BaseResultMap">
   	   select * from tsbm_templte order by id asc 
   </select>
+  <select id="selectListByIds" resultMap="BaseResultMap">
+  	   select * from tsbm_templte 
+  	   where id in
+  	   <foreach collection="tmpIds" item="tmpId" index="index"
+            open="(" close=")" separator=",">
+            #{tmpId}
+        </foreach>
+  	   order by id asc 
+  </select>
 </mapper>

@@ -117,6 +117,7 @@ public class CheckCore {
 				biz = new CoreBiz(tsParamConfig, tds);
 				TsWriteResult result = biz.insertPoints();
 				TsbmWResult baseResult2WebResult = baseResult2WebResult(result, batchId);
+				baseResult2WebResult.setClients(cliNum);
 				tsbmWResultMapper.insert(baseResult2WebResult);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -137,6 +138,7 @@ public class CheckCore {
 				biz = new CoreBiz(tsParamConfig, tds);
 				TsReadResult result = biz.queryTest();
 				TsbmRResult baseResult2WebQueryResult = baseResult2WebQueryResult(result, batchId);
+				baseResult2WebQueryResult.setClients(cliNum);
 				tsbmRResultMapper.insert(baseResult2WebQueryResult);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -270,6 +272,7 @@ public class CheckCore {
 		config.setReadAggreRatio(tmp.getReadAggreRatio().doubleValue());
 		config.setReadShrinkRatio(tmp.getReadShrinkRatio().doubleValue());
 		config.setReadHighRatio(tmp.getReadHighRatio().doubleValue());
+		config.setReadPulse(tmp.getReadPulse());
 		return config;
 	}
 	private TsDataSource getTsDataSource(TsdbCfg cfg,Integer batchId,TsdbBinding binding) {

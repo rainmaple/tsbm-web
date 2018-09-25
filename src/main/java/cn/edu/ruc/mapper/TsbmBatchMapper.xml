@@ -27,7 +27,7 @@
     delete from tsbm_test_batch
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.edu.ruc.entity.TsbmBatch">
+  <insert id="insert" parameterType="cn.edu.ruc.entity.TsbmBatch" useGeneratedKeys="true" keyProperty="id">
     insert into tsbm_test_batch (id, name, template_id, 
       cfg_id, test_status, test_type, 
       create_time, start_time, end_time

@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="/dist/css/skins/skin-blue.min.css">
     <link rel="stylesheet" href="/bower_components/select2/dist/css/select2.min.css">
 </head>
-<body class="skin-blue">
+<body class="skin-blue layui-layout-body">
 <#include  "/common/left.ftl"/>
   <div class="layui-body content-wrapper">
     <!-- 内容主体区域 -->
@@ -36,14 +36,14 @@
 			       </div>
 				   <div class="box-body  no-padding col-xs-6">
 				  	 <div class="input-group input-group-sm">
-		                  <select class="form-control">
+		                  <select class="form-control" id="id_cfg_id">
 		                		<#if dblist?exists>
 							   		<#list dblist as data>
 							   			<option value="${data.id}">${data.name}</option>
 							   		</#list>
 							   	</#if>
 		                  </select>
-		                  <select class="form-control select2 select2-hidden-accessible" multiple="" data-placeholder="Select Templates" style="width: 100%;" tabindex="-1" aria-hidden="true">
+		                  <select id="id_tmp_ids" class="form-control select2 select2-hidden-accessible" multiple="" data-placeholder="Select Templates" style="width: 100%;" tabindex="-1" aria-hidden="true">
 		                		<#if tmplist?exists>
 							   		<#list tmplist as data>
 							   			<option value="${data.id}">${data.name}</option>
@@ -117,36 +117,13 @@ $(function(){
 			}
 		  })
 	})
-	$('.layui-layout-body').on('click','.remove',function(){
-		var dataId=$(this).attr('data-id')
+	$('.layui-layout-body').on('click','#test_button',function(){
+		alert(1111)
+		var tmpIds=$('#id_tmp_ids').val();
+		var cfgId=$('#id_cfg_id').val();
 		$.ajax({
-			url:'/base/remove/batch',
-			data:{id:dataId},
-			type:'post',
-			async:false,
-			success:function(res){
-				getList();
-			}
-		})
-		return false
-	});
-	$('.layui-layout-body').on('click','.cls_start',function(){
-		var dataId=$(this).attr('data-id')
-		$.ajax({
-			url:'/base/batch/start',
-			data:{id:dataId},
-			type:'post',
-			async:false,
-			success:function(res){
-			}
-		})
-		return false
-	});
-	$('.layui-layout-body').on('click','.cls_end',function(){
-		var dataId=$(this).attr('data-id')
-		$.ajax({
-			url:'/base/batch/end',
-			data:{id:dataId},
+			url:'/base/db/start_test',
+			data:{cfgId:cfgId,tmpIds:tmpIds},
 			type:'post',
 			async:false,
 			success:function(res){

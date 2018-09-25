@@ -16,9 +16,9 @@
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
-    <include refid="Base_Column_List" />
-    from tsdb_config
-    where id = #{id,jdbcType=INTEGER}
+    tc.*,tb.db_name db_name
+    from tsdb_config tc,tsdb_binding tb 
+    where tc.binding_id=tb.id and tc.id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from tsdb_config
