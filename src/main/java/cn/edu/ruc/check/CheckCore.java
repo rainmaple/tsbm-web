@@ -215,7 +215,7 @@ public class CheckCore {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		readTest(binding, cfg, tmp, batchId);
+		readTest(binding, cfg, templateMapper.selectByPrimaryKey(3), batchId);
 		statusFlag[0]=true;
 	}
 	public TsbmWResult baseResult2WebResult(TsWriteResult result,Integer batchId) {

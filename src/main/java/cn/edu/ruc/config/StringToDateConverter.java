@@ -14,7 +14,7 @@ public class StringToDateConverter implements Converter<String,Date>{
     private static final String shortDateFormat2 = "yyyy/MM/dd";
     @Override
     public Date convert(String source) {
-    		System.out.println(source);
+//    		System.out.println(source);
         if (StringUtils.isBlank(source)) {
             return null;
         }

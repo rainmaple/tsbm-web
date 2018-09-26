@@ -68,14 +68,14 @@ public class BaseController {
 		return view;
 	}
 	@RequestMapping("binding/save")
-	public ModelAndView bindingSave(HttpServletRequest request,TsdbBinding tsdbBinding){
+	public String bindingSave(HttpServletRequest request,TsdbBinding tsdbBinding){
 		tsdbBindingMapper.insertTsbinding(tsdbBinding);
-		return listTsdbBinding(request);
+		return "redirect:/base/param/list";
 	}
 	@RequestMapping("binding/update")
-	public ModelAndView bindingUpdate(HttpServletRequest request,TsdbBinding tsdbBinding){
+	public String bindingUpdate(HttpServletRequest request,TsdbBinding tsdbBinding){
 		tsdbBindingMapper.updateById(tsdbBinding);
-		return listTsdbBinding(request);
+		return "redirect:/base/param/list";
 	}
 	@RequestMapping("binding/del")
 	public ModelAndView bindingRemove(HttpServletRequest request,Long id) {
@@ -104,14 +104,14 @@ public class BaseController {
 		return view;
 	}
 	@RequestMapping("db_cfg/save")
-	public ModelAndView tsdbCfgsave(HttpServletRequest request,TsdbCfg cfg){
+	public String tsdbCfgsave(HttpServletRequest request,TsdbCfg cfg){
 		tsdbCfgMapper.insert(cfg);
-		return listTsdbBinding(request);
+		return "redirect:/base/param/list";
 	}
 	@RequestMapping("db_cfg/update")
-	public ModelAndView tsdbCfgUpdate(HttpServletRequest request,TsdbCfg cfg){
+	public String tsdbCfgUpdate(HttpServletRequest request,TsdbCfg cfg){
 		tsdbCfgMapper.updateByPrimaryKeySelective(cfg);
-		return listTsdbBinding(request);
+		return "redirect:/base/param/list";
 	}
 	@RequestMapping("db_cfg/del")
 	public ModelAndView dbCfgRemove(HttpServletRequest request,Long id) {
@@ -125,60 +125,18 @@ public class BaseController {
 	@RequestMapping("template/edit/{id}")
 	public ModelAndView editTemplate(HttpServletRequest request,@PathVariable(name="id")Long id){
 		ModelAndView view=new ModelAndView("/template/edit");
-		System.out.println(id);
 		TsbmTemplate model = templateMapper.selectByPrimaryKey(id.intValue());
 		view.addObject("model",model);
 		return view;
 	}
 	@RequestMapping("template/update")
-	public ModelAndView tsdbCfgsave(HttpServletRequest request,TsbmTemplate record,BindingResult bindingResult){
+	public String tsdbCfgsave(HttpServletRequest request,TsbmTemplate record,BindingResult bindingResult){
 		templateMapper.updateByPrimaryKeySelective(record);
-		return listTsdbBinding(request);
+		return "redirect:/base/param/list";
 	}
-//	//template
-//	@RequestMapping("add/template")
-//	@ResponseBody
-//	public Object insertTemplate(HttpServletRequest request,TsbmTemplate template){
-//		//写入
-//		templateMapper.insert(template);
-//		return template;
-//	}
-//	@RequestMapping("list/template")
-//	@ResponseBody
-//	public Object templateList(HttpServletRequest request) {
-//		List<Object> list = templateMapper.selectList();
-//		return ResponseMap.okMap(list);
-//	}
-//	@RequestMapping("remove/template")
-//	@ResponseBody
-//	public Object templateRemove(HttpServletRequest request,Long id) {
-//		templateMapper.deleteByPrimaryKey(id.intValue());
-//		return ResponseMap.okMap(null);
-//	}
-	
 	@Resource
 	TsbmBatchMapper batchMapper;
-	//template
-	@RequestMapping("add/batch")
-	@ResponseBody
-	public Object insertbatch(HttpServletRequest request,TsbmBatch batch){
-		System.out.println(batch);
-		//写入
-		batchMapper.insert(batch);
-		return batch;
-	}
-	@RequestMapping("/batch/to_add")
-	public ModelAndView toBatch(HttpServletRequest request,ModelAndView view) {
-	    List<Object> cfgs = tsdbCfgMapper.selectList();
-	    System.out.println(cfgs.size());
-	    view.addObject("cfgs", cfgs);
-	    List<Object> tmps = templateMapper.selectList();
-	    view.addObject("tmps", tmps);
-	    view.setViewName("/batch/add");
-		return view;
-	}
 	@RequestMapping("list/batch")
-//	@ResponseBody
 	public ModelAndView batchList(HttpServletRequest request,ModelAndView view) {
 		 view.setViewName("/batch/list");
 		List<TsbmBatch> list = batchMapper.selectList();
@@ -214,31 +172,6 @@ public class BaseController {
 		view.addObject("dblist",dblist);
 		List<Object> tmpList = templateMapper.selectList();
 		view.addObject("tmplist",tmpList);
-		return view;
-	}
-	@RequestMapping("remove/batch")
-	@ResponseBody
-	public Object batchRemove(HttpServletRequest request,Long id) {
-		batchMapper.deleteByPrimaryKey(id.intValue());
-		return ResponseMap.okMap(null);
-	}
-	@RequestMapping("batch/start")
-	@ResponseBody
-	public Object batchStart(HttpServletRequest request,Long id) {
-		//校验是否有执行中的，有的话不可以进行别的
-		
-		return ResponseMap.okMap(null);
-	}
-	@RequestMapping("batch/end")
-	@ResponseBody
-	public Object batchEnd(HttpServletRequest request,Long id) {
-		return ResponseMap.okMap(null);
-	}
-	@RequestMapping("batch/view")
-	public ModelAndView batchView(HttpServletRequest request,Long id,ModelAndView view) {
-		view.setViewName("/batch/view");
-		List<TsbmBatch> list = batchMapper.selectList();
-		view.addObject("list",list);
 		return view;
 	}
 	@RequestMapping("db/start_test")
