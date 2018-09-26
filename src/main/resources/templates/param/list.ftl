@@ -89,7 +89,7 @@
 							   		<#list dbList as data>
 							   			<tr>
 							   			<td>${data.name}</td>
-							   			<td>${data.bindingId}</td>
+							   			<td>${data.dbName}</td>
 							   			<td>${data.dbIp}</td>
 							   			<td>${data.dbPort}</td>
 							   			<td>${data.dbUser}</td>
@@ -130,7 +130,7 @@
 							   	<#if tmpList?exists>
 							   		<#list tmpList as data>
 							   			<tr>
-							   				<td><a href="/base/template/${data.id}"> ${data.name}</a></td>
+							   				<td><a href="#"> ${data.name}</a></td>
 							   				<td>${data.testMode}</td>
 							   				<td>${data.backgroundStatus}</td>
 							   				<td>${data.dynStatus}</td>
