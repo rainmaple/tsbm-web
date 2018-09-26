@@ -23,7 +23,7 @@
  	<section class="content-header">
 		<h1>
         性能分析
-        <small>配置选项进行性能分析</small>
+        <small>配置选项进行性能分析,<font color="red">pps单位为 points/s(write)或者requests/s(read),时间的单位为ms</font></small>
       </h1>
 	</section> 		
 	<section class="content content-wrapper">

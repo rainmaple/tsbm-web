@@ -1,9 +1,10 @@
 var barChart_option={
-		tooltip: {
+	tooltip: {
         trigger: 'axis',
         axisPointer: {
             type: 'shadow'
-        }
+        },
+        formatter: '10<sup>{c0}</sup> ms'
     },
     legend: {
         data: []
@@ -24,8 +25,12 @@ var barChart_option={
     series: []
 	};
 var lineChart_option={
-
-     legend: {
+	tooltip: {
+        trigger: 'axis',
+        //在这里设置
+        formatter: '{c0} points or requests/s'
+    },
+    legend: {
         data:[]
     },
     xAxis: {
