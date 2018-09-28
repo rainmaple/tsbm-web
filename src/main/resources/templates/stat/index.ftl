@@ -64,16 +64,16 @@
 											      <th>数据库名称</th>
 											      <th>pps</th>
 											      <th>sum</th>
-											      <th>costTime</th>
+											      <!--<th>costTime</th>-->
 											      <th>success_ratio</th>
 											    </tr> 
 											  </thead>
 											   <tbody id="import_tbody">
 											   			<tr>
-											   			<td>iotdb</td><td>10000</td><td>1000010000</td><td>3</td><td>4</td>
+											   			<td>iotdb</td><td>10000</td><td>1000010000</td><!--<td>3</td>--><td>1</td>
 											   			 </tr>
 											   			 <tr>
-											   			 	<td>influxdb</td><td>132132</td><td>132132132132</td><td>4</td><td>5</td>
+											   			 	<td>influxdb</td><td>132132</td><td>132132132132</td><!--<td>4</td>--><td>1</td>
 											   			 </tr>
 											  </tbody>
 								   		</table>
@@ -398,7 +398,7 @@ $(function(){
 				var tr='<tr><td>'+this.cfgName+'</td>'+
 							'<td>'+this.pps+'</td>'+
 							'<td>'+this.sum+'</td>'+
-							'<td>'+this.costTime+'</td>'+
+//							'<td>'+this.costTime+'</td>'+
 							'<td>'+this.successRatio+'</td></tr>';
 				$(id).append(tr);
 		})
