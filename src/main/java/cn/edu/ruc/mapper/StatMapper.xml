@@ -67,7 +67,7 @@
             open="(" close=")" separator=",">
             #{cfgId}
         </foreach>
-		order by tc.id
+		order by tc.id,twr.clients asc
 	</select>
 	<select id="readBar" resultMap="BarMap">
 		select tmp.*,
@@ -93,6 +93,6 @@
             open="(" close=")" separator=",">
             #{cfgId}
         </foreach>
-		order by tc.id
+		order by tc.id,twr.clients asc
 	</select>
 </mapper>

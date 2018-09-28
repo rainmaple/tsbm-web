@@ -28,9 +28,9 @@
             <li><a href="#" id="template_dd">测试模板参数</a></li>
           </ul>
         </li>-->
-        <li class="active"><a href="/base/param/list" id="binding_li"><i class="fa fa-link"></i> <span>参数配置</span></a></li>
-        <li class="active"><a href="/base/list/batch" id="batch"><i class="fa fa-link"></i> <span>性能测试</span></a></li>
-        <li class="active"><a href="/stat/index" id="stat"><i class="fa fa-link"></i> <span>性能分析</span></a></li>
+        <li class="active"><a href="/base/param/list" id="binding_li"><i class="fa fa-th"></i> <span>参数配置</span></a></li>
+        <li class="active"><a href="/base/list/batch" id="batch"><i class="fa fa-dashboard"></i> <span>性能测试</span></a></li>
+        <li class="active"><a href="/stat/index" id="stat"><i class="fa fa-pie-chart"></i> <span>性能分析</span></a></li>
         <!--<li><a href="/base/list/batch" id="batch"><i class="fa fa-link"></i> <span>性能测试</span></a></li> -->
       </ul>
     </section>
