@@ -263,6 +263,7 @@ public class CheckCore {
 	}
 	private TsParamConfig getTsParamConfig(TsbmTemplate tmp,Integer batchId) {
 		TsParamConfig config =new TsParamConfig();
+		config.setTestMode(tmp.getTestMode());
 		config.setBatchCode(batchId.toString());
 		config.setBackgroupStatus(tmp.getBackgroundStatus());
 		config.setDeviceNum(tmp.getDeviceNum());
