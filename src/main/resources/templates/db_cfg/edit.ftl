@@ -106,6 +106,7 @@
 <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/dist/js/adminlte.min.js"></script>
+<link rel="stylesheet" href="/css/base.css">
 <script>
 </script>
 </body>

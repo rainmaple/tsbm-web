@@ -153,6 +153,7 @@
 <script src="/js/jquery.js"></script>
 <script src="/layer/layer.js"></script>
 <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="/css/base.css">
 <!-- AdminLTE App -->
 <script src="/dist/js/adminlte.min.js"></script>
 <script>

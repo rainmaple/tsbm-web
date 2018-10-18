@@ -335,6 +335,7 @@
 <script src="/bower_components/chart.js/Chart.js"></script>
 <script src="/bower_components/select2/dist/js/select2.full.min.js"></script>
 <script src="/js/chart_option.js"></script>
+<link rel="stylesheet" href="/css/base.css">
 <script>
 //JavaScript代码区域
 layui.use('element', function(){
