@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.ruc.mapper.TsbmTemplateMapper">
+  <resultMap id="BaseResultMap" type="cn.edu.ruc.entity.TsbmTemplate">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="test_mode" jdbcType="VARCHAR" property="testMode" />
+    <result column="dyn_status" jdbcType="INTEGER" property="dynStatus" />
+    <result column="dyn_values" jdbcType="VARCHAR" property="dynValues" />
+    <result column="background_status" jdbcType="INTEGER" property="backgroundStatus" />
+    <result column="sensor_num" jdbcType="INTEGER" property="sensorNum" />
+    <result column="device_num" jdbcType="INTEGER" property="deviceNum" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="step" jdbcType="INTEGER" property="step" />
+    <result column="cache_times" jdbcType="INTEGER" property="cacheTimes" />
+    <result column="write_clients" jdbcType="INTEGER" property="writeClients" />
+    <result column="lose_ratio" jdbcType="DOUBLE" property="loseRatio" />
+    <result column="write_pulse" jdbcType="INTEGER" property="writePulse" />
+    <result column="read_period" jdbcType="BIGINT" property="readPeriod" />
+    <result column="read_clients" jdbcType="INTEGER" property="readClients" />
+    <result column="read_simple_ratio" jdbcType="DECIMAL" property="readSimpleRatio" />
+    <result column="read_aggre_ratio" jdbcType="DECIMAL" property="readAggreRatio" />
+    <result column="read_shrink_ratio" jdbcType="DECIMAL" property="readShrinkRatio" />
+    <result column="read_pulse" jdbcType="INTEGER" property="readPulse" />
+    <result column="function_line_ratio" jdbcType="DECIMAL" property="functionLineRatio" />
+    <result column="function_sin_ratio" jdbcType="DECIMAL" property="functionSinRatio" />
+    <result column="function_square_ratio" jdbcType="DECIMAL" property="functionSquareRatio" />
+    <result column="function_random_ratio" jdbcType="DECIMAL" property="functionRandomRatio" />
+    <result column="function_constant_ratio" jdbcType="DECIMAL" property="functionConstantRatio" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, test_mode, dyn_status, dyn_values, background_status, sensor_num, device_num, 
+    start_time, end_time, step, cache_times, write_clients, lose_ratio, write_pulse, 
+    read_period, read_clients, read_simple_ratio, read_aggre_ratio, read_shrink_ratio, 
+    read_pulse, function_line_ratio, function_sin_ratio, function_square_ratio, function_random_ratio, 
+    function_constant_ratio
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tsbm_templte
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tsbm_templte
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.ruc.entity.TsbmTemplate">
+    insert into tsbm_templte (id, name, test_mode, 
+      dyn_status, dyn_values, background_status, 
+      sensor_num, device_num, start_time, 
+      end_time, step, cache_times, 
+      write_clients, lose_ratio, write_pulse, 
+      read_period, read_clients, read_simple_ratio, 
+      read_aggre_ratio, read_shrink_ratio, read_pulse, 
+      function_line_ratio, function_sin_ratio, function_square_ratio, 
+      function_random_ratio, function_constant_ratio
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{testMode,jdbcType=VARCHAR}, 
+      #{dynStatus,jdbcType=INTEGER}, #{dynValues,jdbcType=VARCHAR}, #{backgroundStatus,jdbcType=INTEGER}, 
+      #{sensorNum,jdbcType=INTEGER}, #{deviceNum,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{step,jdbcType=INTEGER}, #{cacheTimes,jdbcType=INTEGER}, 
+      #{writeClients,jdbcType=INTEGER}, #{loseRatio}, #{writePulse,jdbcType=INTEGER}, 
+      #{readPeriod,jdbcType=BIGINT}, #{readClients,jdbcType=INTEGER}, #{readSimpleRatio,jdbcType=DECIMAL}, 
+      #{readAggreRatio,jdbcType=DECIMAL}, #{readShrinkRatio,jdbcType=DECIMAL}, #{readPulse,jdbcType=INTEGER}, 
+      #{functionLineRatio,jdbcType=DECIMAL}, #{functionSinRatio,jdbcType=DECIMAL}, #{functionSquareRatio,jdbcType=DECIMAL}, 
+      #{functionRandomRatio,jdbcType=DECIMAL}, #{functionConstantRatio,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.ruc.entity.TsbmTemplate">
+    insert into tsbm_templte
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="testMode != null">
+        test_mode,
+      </if>
+      <if test="dynStatus != null">
+        dyn_status,
+      </if>
+      <if test="dynValues != null">
+        dyn_values,
+      </if>
+      <if test="backgroundStatus != null">
+        background_status,
+      </if>
+      <if test="sensorNum != null">
+        sensor_num,
+      </if>
+      <if test="deviceNum != null">
+        device_num,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="step != null">
+        step,
+      </if>
+      <if test="cacheTimes != null">
+        cache_times,
+      </if>
+      <if test="writeClients != null">
+        write_clients,
+      </if>
+      <if test="loseRatio != null">
+        lose_ratio,
+      </if>
+      <if test="writePulse != null">
+        write_pulse,
+      </if>
+      <if test="readPeriod != null">
+        read_period,
+      </if>
+      <if test="readClients != null">
+        read_clients,
+      </if>
+      <if test="readSimpleRatio != null">
+        read_simple_ratio,
+      </if>
+      <if test="readAggreRatio != null">
+        read_aggre_ratio,
+      </if>
+      <if test="readShrinkRatio != null">
+        read_shrink_ratio,
+      </if>
+      <if test="readPulse != null">
+        read_pulse,
+      </if>
+      <if test="functionLineRatio != null">
+        function_line_ratio,
+      </if>
+      <if test="functionSinRatio != null">
+        function_sin_ratio,
+      </if>
+      <if test="functionSquareRatio != null">
+        function_square_ratio,
+      </if>
+      <if test="functionRandomRatio != null">
+        function_random_ratio,
+      </if>
+      <if test="functionConstantRatio != null">
+        function_constant_ratio,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="testMode != null">
+        #{testMode,jdbcType=VARCHAR},
+      </if>
+      <if test="dynStatus != null">
+        #{dynStatus,jdbcType=INTEGER},
+      </if>
+      <if test="dynValues != null">
+        #{dynValues,jdbcType=VARCHAR},
+      </if>
+      <if test="backgroundStatus != null">
+        #{backgroundStatus,jdbcType=INTEGER},
+      </if>
+      <if test="sensorNum != null">
+        #{sensorNum,jdbcType=INTEGER},
+      </if>
+      <if test="deviceNum != null">
+        #{deviceNum,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="step != null">
+        #{step,jdbcType=INTEGER},
+      </if>
+      <if test="cacheTimes != null">
+        #{cacheTimes,jdbcType=INTEGER},
+      </if>
+      <if test="writeClients != null">
+        #{writeClients,jdbcType=INTEGER},
+      </if>
+      <if test="loseRatio != null">
+        #{loseRatio,jdbcType=INTEGER},
+      </if>
+      <if test="writePulse != null">
+        #{writePulse,jdbcType=INTEGER},
+      </if>
+      <if test="readPeriod != null">
+        #{readPeriod,jdbcType=BIGINT},
+      </if>
+      <if test="readClients != null">
+        #{readClients,jdbcType=INTEGER},
+      </if>
+      <if test="readSimpleRatio != null">
+        #{readSimpleRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="readAggreRatio != null">
+        #{readAggreRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="readShrinkRatio != null">
+        #{readShrinkRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="readPulse != null">
+        #{readPulse,jdbcType=INTEGER},
+      </if>
+      <if test="functionLineRatio != null">
+        #{functionLineRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="functionSinRatio != null">
+        #{functionSinRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="functionSquareRatio != null">
+        #{functionSquareRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="functionRandomRatio != null">
+        #{functionRandomRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="functionConstantRatio != null">
+        #{functionConstantRatio,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.ruc.entity.TsbmTemplate">
+    update tsbm_templte
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="testMode != null">
+        test_mode = #{testMode,jdbcType=VARCHAR},
+      </if>
+      <if test="dynStatus != null">
+        dyn_status = #{dynStatus,jdbcType=INTEGER},
+      </if>
+      <if test="dynValues != null">
+        dyn_values = #{dynValues,jdbcType=VARCHAR},
+      </if>
+      <if test="backgroundStatus != null">
+        background_status = #{backgroundStatus,jdbcType=INTEGER},
+      </if>
+      <if test="sensorNum != null">
+        sensor_num = #{sensorNum,jdbcType=INTEGER},
+      </if>
+      <if test="deviceNum != null">
+        device_num = #{deviceNum,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="step != null">
+        step = #{step,jdbcType=INTEGER},
+      </if>
+      <if test="cacheTimes != null">
+        cache_times = #{cacheTimes,jdbcType=INTEGER},
+      </if>
+      <if test="writeClients != null">
+        write_clients = #{writeClients,jdbcType=INTEGER},
+      </if>
+      <if test="loseRatio != null">
+        lose_ratio = #{loseRatio,jdbcType=INTEGER},
+      </if>
+      <if test="writePulse != null">
+        write_pulse = #{writePulse,jdbcType=INTEGER},
+      </if>
+      <if test="readPeriod != null">
+        read_period = #{readPeriod,jdbcType=BIGINT},
+      </if>
+      <if test="readClients != null">
+        read_clients = #{readClients,jdbcType=INTEGER},
+      </if>
+      <if test="readSimpleRatio != null">
+        read_simple_ratio = #{readSimpleRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="readAggreRatio != null">
+        read_aggre_ratio = #{readAggreRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="readShrinkRatio != null">
+        read_shrink_ratio = #{readShrinkRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="readPulse != null">
+        read_pulse = #{readPulse,jdbcType=INTEGER},
+      </if>
+      <if test="functionLineRatio != null">
+        function_line_ratio = #{functionLineRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="functionSinRatio != null">
+        function_sin_ratio = #{functionSinRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="functionSquareRatio != null">
+        function_square_ratio = #{functionSquareRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="functionRandomRatio != null">
+        function_random_ratio = #{functionRandomRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="functionConstantRatio != null">
+        function_constant_ratio = #{functionConstantRatio,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.ruc.entity.TsbmTemplate">
+    update tsbm_templte
+    set name = #{name,jdbcType=VARCHAR},
+      test_mode = #{testMode,jdbcType=VARCHAR},
+      dyn_status = #{dynStatus,jdbcType=INTEGER},
+      dyn_values = #{dynValues,jdbcType=VARCHAR},
+      background_status = #{backgroundStatus,jdbcType=INTEGER},
+      sensor_num = #{sensorNum,jdbcType=INTEGER},
+      device_num = #{deviceNum,jdbcType=INTEGER},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      step = #{step,jdbcType=INTEGER},
+      cache_times = #{cacheTimes,jdbcType=INTEGER},
+      write_clients = #{writeClients,jdbcType=INTEGER},
+      lose_ratio = #{loseRatio,jdbcType=INTEGER},
+      write_pulse = #{writePulse,jdbcType=INTEGER},
+      read_period = #{readPeriod,jdbcType=BIGINT},
+      read_clients = #{readClients,jdbcType=INTEGER},
+      read_simple_ratio = #{readSimpleRatio,jdbcType=DECIMAL},
+      read_aggre_ratio = #{readAggreRatio,jdbcType=DECIMAL},
+      read_shrink_ratio = #{readShrinkRatio,jdbcType=DECIMAL},
+      read_pulse = #{readPulse,jdbcType=INTEGER},
+      function_line_ratio = #{functionLineRatio,jdbcType=DECIMAL},
+      function_sin_ratio = #{functionSinRatio,jdbcType=DECIMAL},
+      function_square_ratio = #{functionSquareRatio,jdbcType=DECIMAL},
+      function_random_ratio = #{functionRandomRatio,jdbcType=DECIMAL},
+      function_constant_ratio = #{functionConstantRatio,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectList" resultMap="BaseResultMap">
+  	   select * from tsbm_templte order by id asc 
+  </select>
+  <select id="selectListByIds" resultMap="BaseResultMap">
+  	   select * from tsbm_templte 
+  	   where id in
+  	   <foreach collection="tmpIds" item="tmpId" index="index"
+            open="(" close=")" separator=",">
+            #{tmpId}
+        </foreach>
+  	   order by id asc 
+  </select>
+</mapper>

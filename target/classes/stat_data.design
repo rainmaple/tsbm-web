@@ -1,0 +1,15 @@
+data-map
+key-type['bar','line']
+	|-- data['bar'] array
+	|	|--data['bar'][0] obj
+	|		|--... write_result对象类似
+	|
+	|
+	|
+	|-- data['line'] array
+	|	|-- data['line'][0] obj
+	|		|--data['line'][0].cfgName str 数据库配置名称
+	|		|--data['line'][0].keys array 对应的keys
+	|			|--data['line'][0].keys[0] int 横坐标
+	|		|--data['line'][0].values array 对应的value
+	|			|--data['line'][0].values[0] double 纵坐标

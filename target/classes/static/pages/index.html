@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>tsbm - web</title>
+  <link rel="stylesheet" href="../layui/css/layui.css">
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <div class="layui-logo">TSBM WEB</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <ul class="layui-nav layui-layout-left">
+      <li class="layui-nav-item"><a href="#" id="body_title"></a></li>
+    </ul>
+  </div>
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+     	 <li class="layui-nav-item bashboard_li"><a href="#" id="bashboard_li">监控面板</a></li>
+     	 <li class="layui-nav-item binding_li"><a id="binding_li" href="#">绑定参数管理</a></li>
+     	 <li class="layui-nav-item db_config_li"><a href="#" id="db_config_li">数据库配置</a></li>
+     	 <li class="layui-nav-item template_dd"><a href="#" id="template_dd">模版管理</a></li>
+     	 <li class="layui-nav-item batch"><a href="#" id="batch">性能测试</a></li>
+        <!-- <li class="layui-nav-item ">
+          <a class="" href="javascript:;">性能测试</a>
+          <dl class="layui-nav-child">
+            <dd><a href="javascript:;" id="import_dd">导入管理</a></dd>
+            <dd><a href="javascript:;" id="write_dd">写入性能测试管理</a></dd>
+            <dd><a href="javascript:;" id="query_dd">查询性能测试管理</a></dd>
+            <dd><a href="javascript:;" id="wirte_qdd">查询背景下写入管理</a></dd>
+            <dd><a href="javascript:;" id="query_wdd">写入背景下查询管理</a></dd>
+          </dl>
+        </li> -->
+      </ul>
+    </div>
+  </div>
+  
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+   <!--  <div>
+	    
+    </div> -->
+    <!-- <div style="padding: 15px;padding-bottom: 1px;" id="body">
+    </div> -->
+  </div>
+  
+  <div class="layui-footer">
+    <!-- 底部固定区域 -->
+  </div>
+</div>
+<script src="../layui/layui.js"></script>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script>
+//JavaScript代码区域
+layui.use('element', function(){
+  var element = layui.element;
+});
+$(function(){
+	//点击控制面板
+	$('.layui-layout-body').on('click','#bashboard_li',function(){
+		$('#body_title').text($(this).text())
+		$('#body').html('')
+	});
+	//点击绑定参数管理
+	$('.layui-layout-body').on('click','#binding_li',function(){
+		$('#body_title').text($(this).text())
+		$('.layui-body').load('pages/binding/list.html')
+	}); 
+	
+	//点击数据库配置
+	$('.layui-layout-body').on('click','#db_config_li',function(){
+		$('#body_title').text($(this).text())
+		$('.layui-body').load('pages/db_cfg/list.html')
+	});
+	//点击模版管理
+	$('.layui-layout-body').on('click','#template_dd',function(){
+		$('#body_title').text($(this).text())
+		$('.layui-body').load('pages/template/list.html')
+	});
+	//点击性能测试
+	$('.layui-layout-body').on('click','#batch',function(){
+		$('#body_title').text($(this).text())
+		$('.layui-body').load('/base/list/batch')
+	});
+})
+
+</script>
+</body>
+</html>

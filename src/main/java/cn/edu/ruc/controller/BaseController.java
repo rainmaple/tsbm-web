@@ -165,6 +165,8 @@ public class BaseController {
 				int dynSum=split.length;
 				progressDouble=count/(double)dynSum;
 			}
+			//避免重复导入相同，数据重复加载
+			if(progressDouble>=100) progressDouble=100;
 			batch.setProgress((int)(progressDouble*100)+"%");
 		}
 		view.addObject("list",list);

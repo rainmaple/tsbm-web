@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.ruc.mapper.ImportLogMapper">
+  <resultMap id="BaseResultMap" type="cn.edu.ruc.entity.ImportLog">
+    <result column="w_id" jdbcType="INTEGER" property="wId" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="sum_seq" jdbcType="INTEGER" property="sumSeq" />
+    <result column="cur_sum_points" jdbcType="BIGINT" property="curSumPoints" />
+    <result column="sum_points" jdbcType="BIGINT" property="sumPoints" />
+    <result column="pps" jdbcType="BIGINT" property="pps" />
+    <result column="begin_time" jdbcType="BIGINT" property="beginTime" />
+    <result column="end_time" jdbcType="BIGINT" property="endTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <insert id="insert" parameterType="cn.edu.ruc.entity.ImportLog">
+    insert into import_log (w_id, seq, sum_seq, 
+      cur_sum_points, sum_points, pps, 
+      begin_time, end_time, status
+      )
+    values (#{wId,jdbcType=INTEGER}, #{seq,jdbcType=INTEGER}, #{sumSeq,jdbcType=INTEGER}, 
+      #{curSumPoints,jdbcType=BIGINT}, #{sumPoints,jdbcType=BIGINT}, #{pps,jdbcType=BIGINT}, 
+      #{beginTime,jdbcType=BIGINT}, #{endTime,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.ruc.entity.ImportLog">
+    insert into import_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="wId != null">
+        w_id,
+      </if>
+      <if test="seq != null">
+        seq,
+      </if>
+      <if test="sumSeq != null">
+        sum_seq,
+      </if>
+      <if test="curSumPoints != null">
+        cur_sum_points,
+      </if>
+      <if test="sumPoints != null">
+        sum_points,
+      </if>
+      <if test="pps != null">
+        pps,
+      </if>
+      <if test="beginTime != null">
+        begin_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="wId != null">
+        #{wId,jdbcType=INTEGER},
+      </if>
+      <if test="seq != null">
+        #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="sumSeq != null">
+        #{sumSeq,jdbcType=INTEGER},
+      </if>
+      <if test="curSumPoints != null">
+        #{curSumPoints,jdbcType=BIGINT},
+      </if>
+      <if test="sumPoints != null">
+        #{sumPoints,jdbcType=BIGINT},
+      </if>
+      <if test="pps != null">
+        #{pps,jdbcType=BIGINT},
+      </if>
+      <if test="beginTime != null">
+        #{beginTime,jdbcType=BIGINT},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="selectProgressByBatchId" resultType="java.lang.Double">
+  		select IFNULL(max((seq+1)/sum_seq),0) progress from import_log where w_id=#{batchId}
+  </select>
+</mapper>
